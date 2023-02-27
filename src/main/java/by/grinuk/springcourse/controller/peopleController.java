@@ -5,9 +5,15 @@ import by.grinuk.springcourse.models.Person;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+
+import javax.validation.Valid;
+
 @Controller
+@Validated
 @RequestMapping("/people")
 public class peopleController {
 
@@ -37,7 +43,11 @@ public class peopleController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("person") Person person){
+    public String create(@Valid @ModelAttribute("person")  Person person,
+                         BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "people/new";
+        }
         personDAO.save(person);
         return "redirect:/people";
     }
@@ -49,7 +59,12 @@ public class peopleController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") Person person, @PathVariable("id") int id){
+    public String update(@Valid @ModelAttribute("person")  Person person,
+                         @PathVariable("id") int id,
+                         BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "people/edit";
+        }
         personDAO.update(id,person);
         return "redirect:/people";
     }

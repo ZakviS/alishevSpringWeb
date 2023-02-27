@@ -16,11 +16,11 @@ public class PersonDAO {
     {
         people = new ArrayList<>();
 
-        people.add(new Person(ID,"Tom"));
+        people.add(new Person(ID,"Tom",25,"fdsfz@gmail.com"));
         ID++;
-        people.add(new Person(ID,"Jack"));
+        people.add(new Person(ID,"Jack",11,"sdg@gmail.com"));
         ID++;
-        people.add(new Person(ID,"Bob"));
+        people.add(new Person(ID,"Bob",15,"sadc@gmail.com"));
         ID++;
     }
 
@@ -40,6 +40,8 @@ public class PersonDAO {
     public void update(int id,Person updatedPerson){
         Person personToBeUpdated = show(id);
 
+        personToBeUpdated.setAge(updatedPerson.getAge());
+        personToBeUpdated.setEmail(updatedPerson.getEmail());
         personToBeUpdated.setName(updatedPerson.getName());
     }
 
