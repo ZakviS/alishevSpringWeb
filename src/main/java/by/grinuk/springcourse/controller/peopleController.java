@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
+import java.sql.SQLException;
 
 @Controller
 @Validated
@@ -25,7 +26,7 @@ public class peopleController {
     private final PersonDAO personDAO;
 
     @GetMapping()
-    public String index(Model model){
+    public String index(Model model) throws SQLException {
         model.addAttribute("people", personDAO.index());
         return "people/index";
     }
